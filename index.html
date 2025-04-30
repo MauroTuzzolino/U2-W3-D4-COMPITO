@@ -11,59 +11,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <style>
-      .jumbotron {
-        padding-top: 3rem;
-        padding-bottom: 3rem;
-        margin-bottom: 0;
-        background-color: #fff;
-      }
-
-      @media (min-width: 768px) {
-        .jumbotron {
-          padding-top: 6rem;
-          padding-bottom: 6rem;
-        }
-      }
-
-      .jumbotron p:last-child {
-        margin-bottom: 0;
-      }
-
-      .jumbotron-heading {
-        font-weight: 300;
-      }
-
-      .jumbotron .container {
-        max-width: 40rem;
-      }
-
-      footer {
-        padding-top: 3rem;
-        padding-bottom: 3rem;
-      }
-
-      footer p {
-        margin-bottom: 0.25rem;
-      }
-
-      .navbar .container-fluid {
-        padding-left: 8em;
-        padding-right: 8em;
-      }
-
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
+    <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
     <header>
@@ -134,6 +82,7 @@
           <div class="row" id="albumRow">
             <!--Le immagini saranno caricate qui-->
           </div>
+          <h5 class="text-center" id="disappearingH5">START SEARCHING</h5>
         </div>
       </div>
     </main>
@@ -162,74 +111,6 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-    <script>
-      const searchButton = document.querySelector("#searchButton");
-      const searchInput = document.querySelector("#searchInput");
-      const albumRow = document.querySelector("#albumRow");
-      const modalImage = document.getElementById("modalImage");
-      const loadSecondaryBtn = document.getElementById("loadSecondaryBtn");
-      const PEXELS_API_KEY = `lC5tl7PsRlSHb6yIL6npP14Qrvzj4jfweXOXjDIOsAUJ1EmhFq3s6Qwn`;
-
-      function loadImages(query) {
-        fetch("https://api.pexels.com/v1/search?query=" + query + "&per_page=9", {
-          headers: {
-            Authorization: PEXELS_API_KEY,
-          },
-        })
-          .then(function (response) {
-            return response.json();
-          })
-          .then(function (data) {
-            albumRow.innerHTML = "";
-            data.photos.forEach(function (photo) {
-              const col = document.createElement("div");
-              col.className = "col-md-4";
-              col.innerHTML = `
-                <div class="card mb-4 shadow-sm">
-                  <a href="detail.html?id=${photo.id}">
-                    <img src="${photo.src.medium}" class="bd-placeholder-img card-img-top" />
-                  </a>
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a href="detail.html?id=${photo.id}" class="text-decoration-none text-dark">${photo.photographer}</a>
-                    </h5>
-                    <p class="card-text">Photo by ${photo.photographer}.</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-sm btn-outline-secondary view-btn" data-full="${photo.src.large}" data-bs-toggle="modal" data-bs-target="#imageModal">View</button>
-                        <button type="button" class="btn btn-sm btn-outline-secondary hide-btn">Hide</button>
-                      </div>
-                      <small class="text-muted">ID: ${photo.id}</small>
-                    </div>
-                  </div>
-                </div>
-              `;
-              albumRow.appendChild(col);
-
-              const hideButton = col.querySelector(".hide-btn");
-              hideButton.addEventListener("click", function () {
-                col.style.display = "none";
-              });
-
-              const viewButton = col.querySelector(".view-btn");
-              viewButton.addEventListener("click", function () {
-                modalImage.src = this.getAttribute("data-full");
-              });
-            });
-          });
-      }
-
-      searchButton.addEventListener("click", function () {
-        const query = searchInput.value;
-        if (query.trim()) {
-          loadImages(query);
-        }
-      });
-
-      loadSecondaryBtn.addEventListener("click", function () {
-        const secondaryQuery = "nature"; // ricerca bottone secondaria
-        loadImages(secondaryQuery);
-      });
-    </script>
+    <script src="./assets/JavaScript/script.js"></script>
   </body>
 </html>
