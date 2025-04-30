@@ -83,7 +83,7 @@
           </div>
         </div>
       </div>
-      <nav class="navbar navbar-dark bg-dark">
+      <nav id="top" class="navbar navbar-dark bg-dark">
         <div class="container-fluid justify-content-between">
           <a href="#" class="navbar-brand d-flex align-items-center">
             <svg
@@ -125,7 +125,6 @@
           <h1 class="jumbotron-heading">Album API example</h1>
           <p class="lead text-muted">This page will dynamically load pictures from the web, and display them in a cool way!</p>
 
-          <!-- Aggiungi il campo di ricerca -->
           <input type="text" id="searchInput" class="form-control my-2" placeholder="Search for images..." />
           <button id="searchButton" class="btn btn-primary my-2">Search</button>
 
@@ -137,7 +136,7 @@
       <div class="album py-5 bg-light">
         <div class="container">
           <div class="row" id="albumRow">
-            <!--Le immagini saranno caricate qui-->
+            <!-- Le immagini saranno caricate qui -->
           </div>
         </div>
       </div>
@@ -145,7 +144,7 @@
     <footer class="text-muted">
       <div class="container">
         <p class="float-right">
-          <a href="#">Back to top</a>
+          <a href="#top">Back to top</a>
         </p>
       </div>
     </footer>
@@ -176,7 +175,9 @@
               col.className = "col-md-4";
               col.innerHTML = `
               <div class="card mb-4 shadow-sm">
-                <img src="${photo.src.medium}" class="bd-placeholder-img card-img-top" />
+                <a href="detail.html?id=${photo.id}" class="stretched-link">
+                  <img src="${photo.src.medium}" class="bd-placeholder-img card-img-top" />
+                </a>
                 <div class="card-body">
                   <h5 class="card-title">${photo.photographer}</h5>
                   <p class="card-text">Photo by ${photo.photographer}.</p>

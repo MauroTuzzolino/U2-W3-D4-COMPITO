@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <title>Image Details</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid justify-content-between">
+          <a href="index.html" class="navbar-brand">Back to Album</a>
+        </div>
+      </nav>
+    </header>
+
+    <main role="main" class="container mt-5">
+      <div class="row">
+        <div class="col-md-8">
+          <img id="detailImage" src="" class="img-fluid" alt="Image" />
+        </div>
+        <div class="col-md-4">
+          <h3 id="photographerName"></h3>
+          <p id="photographerLink"></p>
+        </div>
+      </div>
+    </main>
+
+    <footer class="text-muted mt-5">
+      <div class="container">
+        <p class="float-right">
+          <a href="#">Back to top</a>
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const photoId = urlParams.get("id");
+      const PEXELS_API_KEY = `lC5tl7PsRlSHb6yIL6npP14Qrvzj4jfweXOXjDIOsAUJ1EmhFq3s6Qwn`;
+
+      if (photoId) {
+        fetch(`https://api.pexels.com/v1/photos/${photoId}`, {
+          headers: {
+            Authorization: PEXELS_API_KEY,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            const detailImage = document.getElementById("detailImage");
+            const photographerName = document.getElementById("photographerName");
+            const photographerLink = document.getElementById("photographerLink");
+
+            detailImage.src = data.src.original;
+            photographerName.textContent = `Photographer: ${data.photographer}`;
+            photographerLink.innerHTML = `<a href="${data.photographer_url}" target="_blank">Visit photographer's page</a>`;
+          });
+      }
+    </script>
+  </body>
+</html>
